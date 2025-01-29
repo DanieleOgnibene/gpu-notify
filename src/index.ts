@@ -1,10 +1,14 @@
-import { INTERVAL } from "./environment";
+import { INTERVAL, NVIDIA_LOCALE } from "./environment";
 import { fetchGpusInStock } from "./utils/getGpusInStock";
 import { isShopUpdated } from "./utils/isShopUpdated";
 import { notifyUser } from "./utils/notifyUser";
 
 const getDateString = () => {
   return new Date().toLocaleTimeString();
+};
+
+const getShopUrl = () => {
+  return `https://marketplace.nvidia.com/${NVIDIA_LOCALE}/consumer/graphics-cards/`;
 };
 
 const fetchGpusAndNotify = async () => {
@@ -16,7 +20,8 @@ const fetchGpusAndNotify = async () => {
   await notifyUser(
     `${getDateString()} [GPUs] GPUs in stock: ${gpusInStock
       .map((gpu) => gpu.gpu_name)
-      .join(", ")}`
+      .join(", ")}
+      \n${getShopUrl()}`
   );
 };
 
@@ -32,7 +37,8 @@ const fetchShopAndNotify = async () => {
   } else {
     message += `GPUs in stock: ${shopUpdates.containsGpus
       .map((gpu) => gpu.name)
-      .join(", ")}`;
+      .join(", ")}
+      \n${getShopUrl()}`;
   }
   await notifyUser(message);
 };
