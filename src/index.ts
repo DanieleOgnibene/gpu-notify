@@ -12,18 +12,27 @@ const getShopUrl = () => {
   return `https://marketplace.nvidia.com/${NVIDIA_LOCALE}/consumer/graphics-cards/`;
 };
 
+const previouslyNotifiedGPUs = new Set<string>();
+
 const fetchGpusAndNotify = async () => {
   const gpusInStock = await fetchGpusInStock();
   if (gpusInStock.length === 0) {
     console.log(`${getDateString()} [GPUs] No GPUs in stock`);
+    previouslyNotifiedGPUs.clear();
     return;
   }
+  const gpusToNotify = gpusInStock.filter(
+    (gpu) => !previouslyNotifiedGPUs.has(gpu.gpu_name)
+  );
+  if (gpusToNotify.length === 0) return;
   await notifyUsers(
-    `${getDateString()} [GPUs] GPUs in stock: ${gpusInStock
+    `${getDateString()} [GPUs] GPUs in stock: ${gpusToNotify
       .map((gpu) => gpu.gpu_name)
       .join(", ")}
       \n${getShopUrl()}`
   );
+  previouslyNotifiedGPUs.clear();
+  gpusToNotify.forEach((gpu) => previouslyNotifiedGPUs.add(gpu.gpu_name));
 };
 
 const fetchShopAndNotify = async () => {
