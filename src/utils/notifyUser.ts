@@ -1,17 +1,12 @@
-import player from "play-sound";
-import { DISCORD_USER_ID } from "../environment";
+import { DISCORD_USER_IDS } from "../environment";
 import { sendDirectMessage } from "../libs/discord";
 
-const audioPlayer = player({});
-
-const playSound = () => {
-  audioPlayer.play("src/assets/notification.mp3", (err) => {
-    if (err) console.error("Error playing the sound:", err);
-  });
-};
-
-export const notifyUser = async (message: string) => {
-  playSound();
-  await sendDirectMessage(DISCORD_USER_ID, message);
-  console.log(`Message sent to user ${DISCORD_USER_ID}: ${message}`);
+export const notifyUsers = async (message: string) => {
+  const userIds = DISCORD_USER_IDS.split(",");
+  const promises = userIds.map((userId) =>
+    sendDirectMessage(userId, message).catch((error) => {
+      console.error(`Error sending message to user ${userId}:`, error);
+    })
+  );
+  await Promise.all(promises);
 };

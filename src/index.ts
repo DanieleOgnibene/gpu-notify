@@ -1,7 +1,8 @@
+import gpus from "./data/gpus.json";
 import { INTERVAL, NVIDIA_LOCALE } from "./environment";
 import { fetchGpusInStock } from "./utils/getGpusInStock";
 import { isShopUpdated } from "./utils/isShopUpdated";
-import { notifyUser } from "./utils/notifyUser";
+import { notifyUsers } from "./utils/notifyUser";
 
 const getDateString = () => {
   return new Date().toLocaleTimeString();
@@ -17,7 +18,7 @@ const fetchGpusAndNotify = async () => {
     console.log(`${getDateString()} [GPUs] No GPUs in stock`);
     return;
   }
-  await notifyUser(
+  await notifyUsers(
     `${getDateString()} [GPUs] GPUs in stock: ${gpusInStock
       .map((gpu) => gpu.gpu_name)
       .join(", ")}
@@ -40,7 +41,7 @@ const fetchShopAndNotify = async () => {
       .join(", ")}
       \n${getShopUrl()}`;
   }
-  await notifyUser(message);
+  await notifyUsers(message);
 };
 
 const fetchAllAndNotify = async () => {
@@ -49,6 +50,13 @@ const fetchAllAndNotify = async () => {
 };
 
 const main = async () => {
+  const gpuNames = gpus.map((gpu) => gpu.name).join(", ");
+  await notifyUsers(
+    `GPU monitor started.\nYou will be notified when ${gpuNames} ${
+      gpus.length > 1 ? "are" : "is"
+    } in stock.`
+  );
+
   await fetchAllAndNotify();
 
   setInterval(async () => {

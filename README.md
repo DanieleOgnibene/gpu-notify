@@ -7,7 +7,7 @@ This guide explains how to set up the required Discord environment variables.
 The application requires the following environment variables:
 
 - `DISCORD_BOT_TOKEN`: The token for the Discord bot.
-- `DISCORD_USER_ID`: The ID of the Discord user to notify.
+- `DISCORD_USER_IDS`: The IDs of the Discord users to notify.
 - `NVIDIA_LOCALE`: The locale for the Nvidia shop (e.g., "es-es" for Spanish store).
 - `INTERVAL`: Time in milliseconds between stock checks (default: 10000).
 
@@ -63,7 +63,8 @@ You can add multiple GPUs to monitor by adding more objects to the array.
 2. Get your User ID:
    - Right-click on your username anywhere in Discord
    - Click "Copy User ID"
-   - Add this ID to your `.env` file as `DISCORD_USER_ID`
+   - Add this ID to your `.env` file as `DISCORD_USER_IDS`
+   - If you want to add more users, you can add them as a comma-separated list.
 
 ### Bot Setup for Direct Messages
 

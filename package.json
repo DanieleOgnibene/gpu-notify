@@ -15,9 +15,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@types/play-sound": "^1.1.2",
     "discord.js": "^14.17.3",
-    "dotenv": "^16.4.7",
-    "play-sound": "^1.1.6"
+    "dotenv": "^16.4.7"
   }
 }
