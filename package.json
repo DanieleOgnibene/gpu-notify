@@ -1,0 +1,23 @@
+{
+  "name": "typescript-node-app",
+  "version": "1.0.0",
+  "description": "Nvidia GPU Monitor",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@types/play-sound": "^1.1.2",
+    "discord.js": "^14.17.3",
+    "dotenv": "^16.4.7",
+    "play-sound": "^1.1.6"
+  }
+}
