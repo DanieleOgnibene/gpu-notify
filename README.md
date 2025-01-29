@@ -4,10 +4,43 @@ This guide explains how to set up the required Discord environment variables.
 
 ## Environment Variables
 
-The application requires two Discord-related environment variables:
+The application requires the following environment variables:
 
 - `DISCORD_BOT_TOKEN`: The token for the Discord bot.
 - `DISCORD_USER_ID`: The ID of the Discord user to notify.
+- `NVIDIA_LOCALE`: The locale for the Nvidia shop (e.g., "es-es" for Spanish store).
+- `INTERVAL`: Time in milliseconds between stock checks (default: 10000).
+
+## GPU Configuration
+
+The application monitors GPU stock based on the configuration in `src/data/gpus.json`. You can add or modify GPUs to monitor by editing this file:
+
+```json
+[
+  {
+    "name": "GPU_NAME",
+    "api_url": "https://api.store.nvidia.com/partner/v1/feinventory?skus=SKU_CODE"
+  }
+]
+```
+
+Each GPU entry requires:
+
+- `name`: A descriptive name for the GPU (used in notifications)
+- `api_url`: The Nvidia API URL with the specific SKU code for the GPU
+
+Example:
+
+```json
+{
+  "name": "5090",
+  "api_url": "https://api.store.nvidia.com/partner/v1/feinventory?skus=NVGFT590"
+}
+```
+
+You can add multiple GPUs to monitor by adding more objects to the array.
+
+## Discord Configuration
 
 ### Getting Your Discord Bot Token
 

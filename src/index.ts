@@ -47,7 +47,7 @@ const main = async () => {
 
   setInterval(async () => {
     await fetchAllAndNotify();
-  }, parseInt(INTERVAL));
+  }, INTERVAL);
 };
 
 main().catch((error) => {

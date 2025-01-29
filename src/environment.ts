@@ -21,11 +21,7 @@ if (!_DISCORD_USER_ID) {
   throw new Error("DISCORD_USER_ID is not set");
 }
 
-if (!_INTERVAL) {
-  throw new Error("INTERVAL is not set");
-}
-
 export const DISCORD_BOT_TOKEN = _DISCORD_BOT_TOKEN as string;
 export const DISCORD_USER_ID = _DISCORD_USER_ID as string;
-export const INTERVAL = _INTERVAL as string;
+export const INTERVAL = _INTERVAL ? parseInt(_INTERVAL) : 10000;
 export const NVIDIA_LOCALE = _NVIDIA_LOCALE as string;
