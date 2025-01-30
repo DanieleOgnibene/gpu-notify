@@ -39,18 +39,13 @@ const fetchGpusAndNotify = async () => {
 
 const fetchShopAndNotify = async () => {
   const shopUpdates = await isShopUpdated();
-  if (!shopUpdates.hasChanged) {
+  if (!shopUpdates.isAvailable) {
     console.log(`${getDateString()} [SHOP] No changes`);
     return;
   }
-  let message = `${getDateString()} [SHOP] Shop has been updated! `;
-  if (shopUpdates.containsGpus.length === 0) {
-    message += "No GPUs in stock.";
-  } else {
-    message += `GPUs in stock: ${shopUpdates.containsGpus
-      .map((gpu) => gpu.name)
-      .join(", ")}\n${getShopUrl()}`;
-  }
+  let message = `${getDateString()} [SHOP] ${shopUpdates.title} - ${
+    shopUpdates.stock
+  } GPUs in stock. \n${shopUpdates.purchaseLink}`;
   console.log(message);
   await notifyUsers(message);
 };
