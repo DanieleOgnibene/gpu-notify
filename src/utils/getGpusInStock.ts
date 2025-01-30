@@ -33,8 +33,9 @@ export const fetchGpusInStock = async (): Promise<FeInventoryResponse[]> => {
       );
       return null;
     }
-    const data = response.json() as Promise<
-      Omit<FeInventoryResponse, "gpu_name">
+    const data = (await response.json()) as Omit<
+      FeInventoryResponse,
+      "gpu_name"
     >;
 
     return {
