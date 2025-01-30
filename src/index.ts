@@ -24,13 +24,15 @@ const fetchGpusAndNotify = async () => {
   const gpusToNotify = gpusInStock.filter(
     (gpu) => !previouslyNotifiedGPUs.has(gpu.gpu_name)
   );
-  if (gpusToNotify.length === 0) return;
-  await notifyUsers(
-    `${getDateString()} [GPUs] GPUs in stock: ${gpusToNotify
-      .map((gpu) => gpu.gpu_name)
-      .join(", ")}
-      \n${getShopUrl()}`
-  );
+  if (gpusToNotify.length === 0) {
+    console.log(`${getDateString()} [GPUs] No changes`);
+    return;
+  }
+  const message = `${getDateString()} [GPUs] GPUs in stock: ${gpusToNotify
+    .map((gpu) => gpu.gpu_name)
+    .join(", ")}\n${getShopUrl()}`;
+  await notifyUsers(message);
+  console.log(message);
   previouslyNotifiedGPUs.clear();
   gpusToNotify.forEach((gpu) => previouslyNotifiedGPUs.add(gpu.gpu_name));
 };
@@ -47,9 +49,9 @@ const fetchShopAndNotify = async () => {
   } else {
     message += `GPUs in stock: ${shopUpdates.containsGpus
       .map((gpu) => gpu.name)
-      .join(", ")}
-      \n${getShopUrl()}`;
+      .join(", ")}\n${getShopUrl()}`;
   }
+  console.log(message);
   await notifyUsers(message);
 };
 
