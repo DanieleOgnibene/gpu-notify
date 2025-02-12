@@ -34,7 +34,7 @@ Example:
 ```json
 {
   "name": "5090",
-  "api_url": "https://api.store.nvidia.com/partner/v1/feinventory?skus=NVGFT590"
+  "api_url": "https://api.store.nvidia.com/partner/v1/feinventory?skus=5090LDLCFE"
 }
 ```
 
